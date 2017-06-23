@@ -8,7 +8,7 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    You are logged in! {{\Illuminate\Support\Facades\Auth::user()->name}}
                 </div>
             </div>
         </div>
