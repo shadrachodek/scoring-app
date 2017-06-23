@@ -45,21 +45,24 @@ class PagesController extends Controller
     public function generate_submit(Request $request){
 
         $subjects = Subject::all();
-        $getSubjectId= "";
-        
-            foreach ($subjects as $subject){
-                if ($subject->name == $request['subject']){
-                    $getSubjectId = $subject->id;
-                    break;
-                }
-            }
+        $getSubjectId = "";
 
+        if ($subjects->isEmpty()){
 
             $subject = Subject::create([
                 'subject' => $request['subject'],
             ]);
+            $getSubjectId =  $subject->id;
 
-            $getSubjectId = $subject->id;
+
+        } else {
+                foreach ($subjects as $subject) {
+                    if ($subject->name == $request['subject']) {
+                        $getSubjectId = $subject->id;
+                    }
+                }
+
+        }
 
 
 
@@ -77,7 +80,7 @@ class PagesController extends Controller
             shuffle ($medy);
             Score::create([
                 'user_id' => $user->id,
-                'subject_id' => $getSubjectId,
+                'subject_id' => (int) $getSubjectId,
                 'score' => array_pop($medy)
             ]);
 
